@@ -20,7 +20,7 @@ public class FuncionarioServiceImpl implements IFuncionarioService
 	@Transactional(readOnly = true)
 	public List<Funcionario> findAll()
 	{
-		return funcionarioDao.findAll();
+		return (List<Funcionario>) funcionarioDao.findAll();
 	}
 
 	@Override
@@ -34,14 +34,14 @@ public class FuncionarioServiceImpl implements IFuncionarioService
 	@Transactional(readOnly = true)
 	public Funcionario findOne(Long id)
 	{
-		return funcionarioDao.findOne(id);
+		return funcionarioDao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id)
 	{
-		funcionarioDao.delete(id);
+		funcionarioDao.deleteById(id);
 	}
 
 }
