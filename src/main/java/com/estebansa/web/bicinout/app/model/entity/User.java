@@ -1,15 +1,18 @@
 package com.estebansa.web.bicinout.app.model.entity;
 
+
 public class User
 {
 	private Long id;
+	
 	private String nombre;
+	
 	private String apellido;
 
-	/*public User()
+	public User()
 	{
 		
-	}*/
+	}
 
 	public User(String nombre, String apellido)
 	{

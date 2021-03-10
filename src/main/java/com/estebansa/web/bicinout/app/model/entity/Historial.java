@@ -1,30 +1,78 @@
 package com.estebansa.web.bicinout.app.model.entity;
 
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
-public class Historial
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "historiales")
+public class Historial implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Bicicleta bicileta;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Bicicleta bicicleta;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Estudiante estudiante;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Funcionario funcionario;
+
+	@Column(name = "fecha_entrada")
+	@Temporal(TemporalType.DATE)
 	private Calendar fechaEntrada;
+
+	@Column(name = "fechaSalida")
+	@Temporal(TemporalType.DATE)
 	private Calendar fechaSalidad;
-	private String horaEntrada;
-	private String horaSalida;
+
+	@Column(name = "hora_entrada")
+	@Temporal(TemporalType.TIME)
+	private Date horaEntrada;
+
+	@Column(name = "hora_salida")
+	@Temporal(TemporalType.TIME)
+	private Date horaSalida;
+
+	@Column(name = "fechaCreacion")
+	@Temporal(TemporalType.DATE)
+	private Calendar fechaCreacion;
+
+	@PrePersist
+	public void prePersist()
+	{
+		this.fechaCreacion = Calendar.getInstance();
+	}
 
 	public Historial()
 	{
-		
+
 	}
-	
+
 	public Historial(Estudiante estudiante, Bicicleta bicicleta, Funcionario funcionario)
 	{
 		this.estudiante = estudiante;
-		this.bicileta = bicicleta;
+		this.bicicleta = bicicleta;
 		this.funcionario = funcionario;
 	}
-	
+
 	public Long getId()
 	{
 		return id;
@@ -37,12 +85,12 @@ public class Historial
 
 	public Bicicleta getBicileta()
 	{
-		return bicileta;
+		return bicicleta;
 	}
 
 	public void setBicileta(Bicicleta bicileta)
 	{
-		this.bicileta = bicileta;
+		this.bicicleta = bicileta;
 	}
 
 	public Estudiante getEstudiante()
@@ -85,24 +133,34 @@ public class Historial
 		this.fechaSalidad = fechaSalidad;
 	}
 
-	public String getHoraEntrada()
+	public Date getHoraEntrada()
 	{
 		return horaEntrada;
 	}
 
-	public void setHoraEntrada(String horaEntrada)
+	public void setHoraEntrada(Date horaEntrada)
 	{
 		this.horaEntrada = horaEntrada;
 	}
 
-	public String getHoraSalida()
+	public Date getHoraSalida()
 	{
 		return horaSalida;
 	}
 
-	public void setHoraSalida(String horaSalida)
+	public void setHoraSalida(Date horaSalida)
 	{
 		this.horaSalida = horaSalida;
+	}
+
+	public Calendar getFechaCreacion()
+	{
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Calendar fechaCreacion)
+	{
+		this.fechaCreacion = fechaCreacion;
 	}
 
 }

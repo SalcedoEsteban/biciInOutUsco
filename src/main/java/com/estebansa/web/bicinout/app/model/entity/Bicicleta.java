@@ -1,14 +1,64 @@
 package com.estebansa.web.bicinout.app.model.entity;
 
-public class Bicicleta
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "bicicletas")
+public class Bicicleta implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Estudiante estudiante;
+
 	private String color;
+
 	private String marca;
+
 	private boolean candado;
+
 	private String estado;
+
 	private String comentario;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_creacion")
+	private Calendar fechaCreacion;
+
+	@OneToMany(mappedBy = "bicicleta", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	private List<Historial> historiales;
+
+	public Bicicleta()
+	{
+		historiales = new ArrayList<>();
+	}
+
+	@PrePersist
+	public void prePersist()
+	{
+		this.fechaCreacion = Calendar.getInstance();
+	}
 
 	public Long getId()
 	{
@@ -78,6 +128,26 @@ public class Bicicleta
 	public void setComentario(String comentario)
 	{
 		this.comentario = comentario;
+	}
+
+	public Calendar getFechaCreacion()
+	{
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Calendar fechaCreacion)
+	{
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public List<Historial> getHistoriales()
+	{
+		return historiales;
+	}
+
+	public void setHistoriales(List<Historial> historiales)
+	{
+		this.historiales = historiales;
 	}
 
 }
