@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title th:text="${titulo}"></title>
+</head>
+<body>
+	<form th:action="@{/historial/guardar}" th:object="${historial}" method="post">
+		<div th:if="${entrada}">
+			<label for="fechaEntrada">Fecha Entrada</label>
+			<div>
+				<input type="date" id="fechaEntrada" th:field="*{fechaEntrada}" th:errorClass="form control alert-danger">
+				<small th:if="${#fields.hasErrors('fechaEntrada')}" th:errors="*{fechaEntrada}"></small>
+			</div>
+		</div>
+		<div th:if="${entrada == false}">
+			<label for="fechaSalida">Fecha Salida</label>
+			<div>
+				<input type="date" id="fechaSalida" th:field="*{fechaSalida}" th:errorClass="form control alert-danger">
+				<small th:if="${#fields.hasErrors('fechaSalida')}" th:errors="*{fechaSalida}"></small>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "historiales")
 public class Historial implements Serializable
@@ -37,6 +39,7 @@ public class Historial implements Serializable
 
 	@Column(name = "fecha_entrada")
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Calendar fechaEntrada;
 
 	@Column(name = "fechaSalida")

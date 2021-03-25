@@ -18,6 +18,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "bicicletas")
@@ -30,12 +33,16 @@ public class Bicicleta implements Serializable
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@NotNull
 	private Estudiante estudiante;
 
+	@NotBlank
 	private String color;
 
+	@NotBlank
 	private String marca;
 
+	@NotNull
 	private boolean candado;
 
 	private String estado;

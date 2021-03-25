@@ -2,6 +2,7 @@ package com.estebansa.web.bicinout.app.model.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "estudiantes")
@@ -24,21 +29,37 @@ public class Estudiante implements Serializable
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank
 	private String nombre;
 
+	@NotBlank
 	private String apellido;
 
 	@Column(name = "tipo_identificacion")
+	@NotBlank
 	private String tipoIdentificacion;
 
-	@Column(name = "numero_identificacion")
-	private String numeroIdentificacion;
+	// @Column(name = "numero_identificacion")
+	@NotBlank
+	private String identificacion;
+	
+	@NotBlank
+	private String codigo;
 
+	@NotBlank
 	private String carrera;
 
-	private String factultad;
+	@NotBlank
+	private String facultad;
 
-	private boolean estado;
+	@Column(name = "matricula_activa")
+	private Boolean matriculaActiva;
+
+	/*private Integer estado;*/
+
+	@Column(name = "fecha_creacion")
+	@Temporal(TemporalType.DATE)
+	private Calendar fechaCreacion;
 
 	@OneToMany(mappedBy = "estudiante", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Bicicleta> bicicletas;
@@ -46,6 +67,12 @@ public class Estudiante implements Serializable
 	@OneToMany(mappedBy = "estudiante", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Historial> historiales;
 
+	@PrePersist
+	public void prePersist()
+	{
+		this.fechaCreacion = Calendar.getInstance();
+	}
+	
 	public Estudiante()
 	{
 		bicicletas = new ArrayList<>();
@@ -92,14 +119,24 @@ public class Estudiante implements Serializable
 		this.tipoIdentificacion = tipoIdentificacion;
 	}
 
-	public String getNumeroIdentificacion()
+	public String getIdentificacion()
 	{
-		return numeroIdentificacion;
+		return identificacion;
 	}
 
-	public void setNumeroIdentificacion(String numeroIdentificacion)
+	public void setIdentificacion(String identificacion)
 	{
-		this.numeroIdentificacion = numeroIdentificacion;
+		this.identificacion = identificacion;
+	}
+
+	public String getCodigo()
+	{
+		return codigo;
+	}
+
+	public void setCodigo(String codigo)
+	{
+		this.codigo = codigo;
 	}
 
 	public String getCarrera()
@@ -112,24 +149,44 @@ public class Estudiante implements Serializable
 		this.carrera = carrera;
 	}
 
-	public String getFactultad()
+	public String getFacultad()
 	{
-		return factultad;
+		return facultad;
 	}
 
-	public void setFactultad(String factultad)
+	public void setFacultad(String facultad)
 	{
-		this.factultad = factultad;
+		this.facultad = facultad;
 	}
 
-	public boolean isEstado()
+	public Boolean getMatriculaActiva()
+	{
+		return matriculaActiva;
+	}
+
+	public void setMatriculaActiva(Boolean matriculaActiva)
+	{
+		this.matriculaActiva = matriculaActiva;
+	}
+	
+	/*public Integer getEstado()
 	{
 		return estado;
 	}
 
-	public void setEstado(boolean estado)
+	public void setEstado(Integer estado)
 	{
 		this.estado = estado;
+	}*/
+
+	public Calendar getFechaCreacion()
+	{
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Calendar fechaCreacion)
+	{
+		this.fechaCreacion = fechaCreacion;
 	}
 
 	public List<Bicicleta> getBicicletas()

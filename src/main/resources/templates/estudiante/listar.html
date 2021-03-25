@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Codigo</th>
+				<th>Carrera</th>
+				<th>Matricula Activa</th>
+				<th>Registrar Bicicleta(s)<th>
+				<th>Ver Bicicletas<th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="estudiante: ${estudiantes}">
+				<td th:text="${estudiante.id}"></td>
+				<td th:text="${estudiante.nombre}"></td>
+				<td th:text="${estudiante.apellido}"></td>
+				<td th:text="${estudiante.codigo}"></td>
+				<td th:text="${estudiante.carrera}"></td>
+				<td th:text="${estudiante.matriculaActiva == true ? 'SI' : 'NO'}"></td>
+				<td><a th:href="@{/bicicleta/form/} + ${estudiante.id}"><button>Registrar</button></a></td>
+				<td><a th:href="@{/bicicleta/form/} + ${estudiante.id}"><button>Ver</button></a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

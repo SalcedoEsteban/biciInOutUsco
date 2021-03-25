@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title th:text="${titulo}"></title>
+</head>
+<body>
+	<form th:action="@{/bicicleta/guardar}" method="post" th:object="${bicicleta}">
+		<div>
+			<label for="color">Color</label>
+			<div>
+				<input type="text" id="color" th:field="*{color}">
+				 <small th:if="${#fields.hasErrors('color')}" th:errors="*{color}"></small>
+			</div>
+		</div>
+		<div>
+			<label for="marca">Marca</label>
+			<div>
+				<input type="text" id="marca" th:field="*{marca}">
+				 <small th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></small>
+			</div>
+		</div>
+		<div>
+			<label for="candado">Candado</label>
+			<div>
+				<select th:field="*{candado}">
+					<!-- <option value=" ">====seleccionar opción====</option> -->
+					<option value="true">SI</option>
+					<option value="false">NO</option>
+				</select>
+				<small th:if="${#fields.hasErrors('candado')}" th:errors="*{candado}"></small>
+			</div>
+		</div>
+		<div>
+			<label for="estado">Estado</label>
+			<div>
+				<input type="text" id="estado" th:field="*{estado}" placeholder="Ejemplo: Buen estado">
+				 <small th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
+			</div>
+		</div>
+		<div>
+			<label for="comentario">Comentario</label>
+			<div>
+				<input type="text" id="comentario" th:field="*{comentario}" placeholder="Ejmplo: la bicicleta llega sin aire en su llanta delanterz">
+				 <small th:if="${#fields.hasErrors('comentario')}" th:errors="*{comentario}"></small>
+			</div>
+		</div>
+		<div>
+			<button type="submit">Registrar Bicicleta</button>
+		</div>
+	</form>
+</body>
+</html>
