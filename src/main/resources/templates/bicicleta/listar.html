@@ -17,8 +17,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td></td>
+			<tr th:each="bicicleta: ${bicicletas}">
+				<td th:text="${bicicleta.id}"></td>
+				<td th:text="${bicicleta.color}"></td>
+				<td th:text="${bicicleta.marca}"></td>
+				<td th:if="${bicicleta.candado == true }" th:text="'SI'"></td>
+				<td th:if="${bicicleta.candado == false }" th:text="'SI'"></td>
+				<td th:text="${bicicleta.estado}"></td>
+				<td th:text="${bicicleta.comentario}"></td>
 			</tr>
 		</tbody>
 		

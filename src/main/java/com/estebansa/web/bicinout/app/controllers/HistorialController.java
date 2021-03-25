@@ -57,7 +57,7 @@ public class HistorialController
 		}
 		
 		/** se realiza el consumo de la API REST  */
-		ResponseEntity<Estudiante> estudiante = EstudianteController.consultar(estudianteGuardado.getCodigo());
+		ResponseEntity<Estudiante> estudiante = consultar(estudianteGuardado.getCodigo());
 		
 		/* se valida que el estudiante exista en la base de datos que consulta la API REST*/
 		if(estudiante.getStatusCodeValue() == 404)
@@ -85,5 +85,12 @@ public class HistorialController
 		model.put("bicicletas", bicicletas);
 		
 		return "historial/form";
+	}
+	
+	private ResponseEntity<Estudiante> consultar(String codigo)
+	{
+		String url = "http://localhost:8080/api/estudiantes/" + codigo;
+		
+		return restTemplate.getForEntity(url, Estudiante.class);
 	}
 }

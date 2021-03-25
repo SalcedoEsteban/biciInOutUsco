@@ -1,5 +1,7 @@
 package com.estebansa.web.bicinout.app.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -61,6 +63,36 @@ public class BicicletaController
 				" " + estudiante.getApellido());
 		
 		return "bicicleta/form";
+	}
+	
+	@GetMapping("/buscar/{idEstudiante}")
+	public String buscar(@PathVariable Long idEstudiante, Map<String, Object> model)
+	{
+		Estudiante estudiante = null;
+		List<Bicicleta> bicicletas = new ArrayList<>();
+		
+		if(idEstudiante > 0)
+		{
+			estudiante = estudianteService.findById(idEstudiante);
+			
+			if(estudiante == null)
+			{
+				//se agrega mensaje flash de que el estudiante no existe en la base de datos y se redirige a la url especificada
+				return "redirect:/estudiantes/listar";
+			}
+		}
+		else
+		{
+			//se agrega mensaje flash de que el id no puede ser menor a cero y se redirige a la url especificada
+			return "redirect:/estudiantes/listar";
+		}
+		
+		bicicletas = bicicletaService.findByEstudiante(estudiante);
+		
+		model.put("bicicletas", bicicletas);
+		model.put("titulo", "Bicicletas asignadas al estudiante: ".concat(estudiante.getNombre()).concat(" con codigo: ") + estudiante.getCodigo());
+		
+		return "bicicleta/listar";
 	}
 	
 	@PostMapping("/guardar")

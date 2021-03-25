@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
 
-import com.estebansa.web.bicinout.app.model.entity.Bicicleta;
 import com.estebansa.web.bicinout.app.model.entity.Estudiante;
 import com.estebansa.web.bicinout.app.model.service.IEstudianteService;
 
@@ -27,7 +26,7 @@ import com.estebansa.web.bicinout.app.model.service.IEstudianteService;
 public class EstudianteController
 {
 	@Autowired
-	private static RestTemplate restTemplate;
+	private RestTemplate restTemplate;
 	
 	@Autowired
 	private IEstudianteService estudianteService;
@@ -98,13 +97,10 @@ public class EstudianteController
 		return "estudiante/listar";
 	}
 	
-	public static ResponseEntity<Estudiante> consultar(String codigo)
+	private ResponseEntity<Estudiante> consultar(String codigo)
 	{
 		String url = "http://localhost:8080/api/estudiantes/" + codigo;
 		
 		return restTemplate.getForEntity(url, Estudiante.class);
 	}
-	
-	
-	
 }

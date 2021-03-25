@@ -28,7 +28,7 @@
 				<td th:text="${estudiante.carrera}"></td>
 				<td th:text="${estudiante.matriculaActiva == true ? 'SI' : 'NO'}"></td>
 				<td><a th:href="@{/bicicleta/form/} + ${estudiante.id}"><button>Registrar</button></a></td>
-				<td><a th:href="@{/bicicleta/form/} + ${estudiante.id}"><button>Ver</button></a></td>
+				<td><a th:href="@{/bicicleta/buscar/} + ${estudiante.id}"><button>Ver</button></a></td>
 			</tr>
 		</tbody>
 	</table>
