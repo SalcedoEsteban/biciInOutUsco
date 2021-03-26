@@ -5,7 +5,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table>
+	<div th:if="${bicicletas.isEmpty()}">
+		<h1 style="color: red">El estudiante no cuenta con bicicletas registradas</h1>
+	</div>
+	<table th:if="${!bicicletas.isEmpty()}">
 		<thead>
 			<tr>
 				<th>ID</th>
